@@ -229,6 +229,7 @@ const RenderVariationTree = memo(
     const mainLinePath = [...nodePath, 0];
     return (
       <>
+        {/* Render the current move of the main line */}
         {variations.length > 0 && (
           <CompleteMoveCell
             targetRef={targetRef}
@@ -243,11 +244,13 @@ const RenderVariationTree = memo(
           />
         )}
 
-        <VariationCell moveNodes={variationNodes} />
-
+        {/* Render the rest of the main line FIRST */}
         {node.children.length > 0 && (
           <RenderVariationTree targetRef={targetRef} nodePath={mainLinePath} depth={depth + 1} />
         )}
+
+        {/* Render variations AFTER the main line is complete */}
+        <VariationCell moveNodes={variationNodes} />
       </>
     );
   },
